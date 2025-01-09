@@ -2,13 +2,13 @@
 source ./characters.sh
 source ./view_warriors.sh
 source ./shops.sh
+source ./fight_bandits.sh
 
 days=0
 money=100
 hunger=50
-warrior 3 true
-#readarray -t userwarriors < <(warrior 3 true)
-#userwarriors holds all of the user's warriors
+warrior 3 "true"
+warrior 2 "false"
 while (( money < 500 ))
 do
 	((day+=1))
@@ -27,9 +27,10 @@ do
 		case $ch in 
 			1)
 				echo "View Warriors"
-				view_warriors;;
+				view_warriors user;;
 			2)
 				echo "Fight Bandits"
+				fight_bandits
 				break;;
 			3)
 				echo "Go to Shop"
