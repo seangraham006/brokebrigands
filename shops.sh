@@ -1,5 +1,9 @@
 #!/bin/bash
 
+user_warriors = ("Warrior1", "Warrior2", "Warrior3")
+user_healths=(100)
+user_hunger=50
+user_money=0
 
 function shop() {
     echo "Shop:"
