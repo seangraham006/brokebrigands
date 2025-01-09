@@ -1,25 +1,30 @@
 #! /bin/bash
 source ./characters.sh
+source ./view_warriors.sh
+
 days=0
 money=0
 hunger=50
-readarray -t userwarriors < <(warrior 1 true)
+readarray -t userwarriors < <(warrior 3 true)
 #userwarriors holds all of the user's warriors
 while (( money < 500 ))
 do
 	((day+=1))
 	baronTask=false
 	
-	# Display Options
-	echo -e "\n-----  Starting Day ${day}  -----"
-	echo -e "\n1 View Warriors\n2 Fight Bandits\n3 Go to the Shop\n4 Hire Warrior"
-	[[ $baronTask == true ]] && echo -e "5 Complete Baron's Task\n6 Attack Baron\n7 Quit" || echo "5 Quit"
-	
 	while true; do
+
+		# Display Options
+        	echo -e "\n-----  Starting Day ${day}  -----"
+        	echo -e "\n1 View Warriors\n2 Fight Bandits\n3 Go to the Shop\n4 Hire Warrior"
+        	[[ $baronTask == true ]] && echo -e "5 Complete Baron's Task\n6 Attack Baron\n7 Quit" || echo "5 Quit"
+		
+		echo
 		read -p "Enter your choice: " ch
 		case $ch in 
 			1)
-				echo "View Warriors";;
+				echo "View Warriors"
+				view_warriors "${userwarriors[@]}";;
 			2)
 				echo "Fight Bandits"
 				break;;

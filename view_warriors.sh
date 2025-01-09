@@ -1,16 +1,16 @@
 #! /bin/bash
 
-user_warriors=("Warrior1" "Warrior2" "Warrior3")
-user_healths=(100 90 80)
-user_hunger=50
-user_damages=(10 15 20)
-
 function view_warriors() {
-    echo "Your Warriors:"
-    for i in "${!user_warriors[@]}"; do
-        echo "$((i+1)). ${user_warriors[i]} - Health: ${user_healths}, Damage: ${user_damages[i]}"
-    done
-    echo
-}
+	echo -e "Your Warriors:\n"
+	count=0
+    	for warrior in "$@"; do
+		((count++))
+		warrior_no_quotes=$(echo "$warrior" | sed 's/"//g')
+		name=$(echo $warrior_no_quotes | awk -F, '{print $3}')
+		health=$(echo $warrior_no_quotes | awk -F, '{print $1}')
+		damage=$(echo $warrior_no_quotes | awk -F, '{print $2}')
 
-view_warriors
+		echo -e "$count. $name - Health: $health  Attack Power: $damage"
+    	done
+    	echo
+}
