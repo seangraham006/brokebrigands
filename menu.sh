@@ -15,8 +15,8 @@ init
 hunger=$(get_hunger)
 money=$(get_money)
 
-warrior 1 "true"
-warrior 2 "false"
+warrior 3 "true"
+
 quit="false"
 
 while (( money < 500 ))
@@ -57,7 +57,13 @@ do
 				shop;;
 			4)
 				echo "Hire Warrior"
-				break;;
+				echo -e "\n1 warrior costs 40 coins"
+				if (( money < 40 )); then
+					echo "Sorry you don't have enough for a warrior"
+				else
+					read -p "How many warriors do you want: " qty
+					hire_warrior "$qty"
+				fi;;
 			5)
 				if [[ $baronTask == false ]]; then
 					echo "Quitting"
