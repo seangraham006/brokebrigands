@@ -1,4 +1,5 @@
 #! /bin/bash
+source ./init.sh
 
 resolve_fight() {
     # Initialize user money from the argument
@@ -30,9 +31,9 @@ resolve_fight() {
         if [[ "$turn" -eq 0 ]]; then
             if [[ "$first_strike_done" -eq 0 ]]; then
                 # Apply *4 damage on the first strike
-                enemy_health=$((enemy_health - user_damage * 4))
+                enemy_health=$((enemy_health - user_damage * 8))
                 first_strike_done=1
-                echo "First strike! You dealt $(($user_damage * 4)) damage."
+                echo "First strike! You dealt $(($user_damage * 8)) damage."
             else
                 enemy_health=$((enemy_health - user_damage))
             fi
@@ -51,6 +52,17 @@ resolve_fight() {
         echo "Victory! You earned $reward coins. Current money: $(get_money)"
     else
         echo "Defeat! Your warriors suffered greatly."
+	
+	num_warriors=$(wc -l < "enemy_warriors")
+	penalty=$((num_warriors*5*((RANDOM % 3) + 2)))
+	(( penalty < 20 )) && penalty=20
+	if (( user_money-penalty < 0 )); then
+		user_money=0
+	else
+		(( user_money -= penalty ))
+	fi
+	set_money "$user_money"
+
         # Update user warriors after defeat (subtract health from each)
         while IFS=' ' read -r health damage name; do
             local new_health=$((health - 20))

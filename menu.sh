@@ -17,11 +17,20 @@ money=$(get_money)
 
 warrior 1 "true"
 warrior 2 "false"
+quit="false"
+
 while (( money < 500 ))
 do
 	((day+=1))
 	baronTask=false
 	
+	num_warriors=$(wc -l < "user_warriors")
+	
+	new_hunger=$((hunger + (num_warriors * 3)))
+	
+	
+
+	hunger=$(set_hunger "$new_hunger")	
 	while true; do
 		hunger=$(get_hunger)
 		money=$(get_money)
@@ -34,15 +43,14 @@ do
 		
 		echo
 		read -p "Enter your choice: " ch
+		echo
 		case $ch in 
 			1)
 				echo "View Warriors"
 				view_warriors user;;
 			2)
 				echo "Fight Bandits"
-				fight_bandits $money
-				echo "$?"
-				echo "money: $money"
+				fight_bandits
 				break;;
 			3)
 				echo "Go to Shop"
