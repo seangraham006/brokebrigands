@@ -1,14 +1,15 @@
 #!/bin/bash
 source ./view_warriors.sh
+source ./init.sh
 
 food_cost=10
 bandage_cost=15
 hunger_decrease=10
 health_boost=20
 
-function newshop() {
-	user_money="$1"
-	user_hunger="$2"
+function shop() {
+	user_money=$(get_money)
+	user_hunger=$(get_hunger)
         echo -e "\n----  Shop ----"
         while true; do
 		echo "Money: $user_money | Hunger: $user_hunger"
@@ -55,7 +56,7 @@ function newshop() {
 				fi;;
                         2)
                                 if [[ "$user_money" -ge 15 ]]; then
-                                        view_warriors
+                                        view_warriors user
                                         read -p "Choose warrior to heal or press 'q' to quit: " warrior_index
 
                                         if [[ "$warrior_index" == "q" ]]; then
@@ -96,4 +97,6 @@ function newshop() {
         done
 
         echo "$user_money $user_hunger"
+	set_money $user_money
+	set_hunger $user_hunger
 }

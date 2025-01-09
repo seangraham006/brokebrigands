@@ -1,13 +1,21 @@
 #! /bin/bash
+
+source ./init.sh
 source ./characters.sh
 source ./view_warriors.sh
 source ./shops.sh
 source ./fight_bandits.sh
 
+#data in init stored hunger,money
+
 days=0
-money=100
-hunger=50
-warrior 3 "true"
+
+init
+
+hunger=$(get_hunger)
+money=$(get_money)
+
+warrior 1 "true"
 warrior 2 "false"
 while (( money < 500 ))
 do
@@ -15,6 +23,8 @@ do
 	baronTask=false
 	
 	while true; do
+		hunger=$(get_hunger)
+		money=$(get_money)
 
 		# Display Options
         	echo -e "\n-----  Starting Day ${day}  -----"
@@ -30,15 +40,13 @@ do
 				view_warriors user;;
 			2)
 				echo "Fight Bandits"
-				fight_bandits
+				fight_bandits $money
+				echo "$?"
+				echo "money: $money"
 				break;;
 			3)
 				echo "Go to Shop"
-				newshop $money $hunger
-				result=$?
-				money=$(echo "$result" | awk '{print $1}')
-				hunger=$(echo "$result" | awk '{print $2}')
-				echo -e "\nMoney: $money | Hunger: $hunger";;
+				shop;;
 			4)
 				echo "Hire Warrior"
 				break;;
@@ -66,8 +74,5 @@ do
 			*)
 				echo "Invalid Option";;
 		esac
-	done
-	(( money += 250 ))
-	
-
+	done	
 done
