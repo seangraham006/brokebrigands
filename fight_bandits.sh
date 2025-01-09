@@ -21,7 +21,9 @@ function fight_bandits() {
 		3) warrior 4 false ;;
 		*) echo "Invalid choice!"; return ;;
 	esac
-
+	
+	view_warriors user
+	echo "vs"
 	view_warriors enemy
 
 	read -p "Do you want to forfeit? (yes/no): " forfeit_choice
