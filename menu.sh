@@ -1,6 +1,7 @@
 #! /bin/bash
 source ./characters.sh
 source ./view_warriors.sh
+source ./fight_bandits.sh
 
 days=0
 money=0
@@ -27,6 +28,7 @@ do
 				view_warriors "${userwarriors[@]}";;
 			2)
 				echo "Fight Bandits"
+				fight_bandits
 				break;;
 			3)
 				echo "Go to Shop";;
