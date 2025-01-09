@@ -12,10 +12,14 @@ warrior() {
             name="Unknown Enemy"
         fi
 
-        warriors+=("\"$health,$damage,$name\"")
+        warriors+=("$health $damage $name")
     done
 
+    if [[ -f "user_warriors" ]]; then
+	    rm "user_warriors"
+    fi
+
     for warrior in "${warriors[@]}"; do
-	    echo "$warrior"
+	    echo $warrior >> user_warriors
 	done
 }

@@ -3,14 +3,14 @@
 function view_warriors() {
 	echo -e "Your Warriors:\n"
 	count=0
-    	for warrior in "$@"; do
+    	while IFS= read -r warrior; do
 		((count++))
-		warrior_no_quotes=$(echo "$warrior" | sed 's/"//g')
-		name=$(echo $warrior_no_quotes | awk -F, '{print $3}')
-		health=$(echo $warrior_no_quotes | awk -F, '{print $1}')
-		damage=$(echo $warrior_no_quotes | awk -F, '{print $2}')
+		name=$(echo $warrior | awk '{print $3}')
+		health=$(echo $warrior | awk '{print $1}')
+		damage=$(echo $warrior | awk '{print $2}')
 
 		echo -e "$count. $name - Health: $health  Attack Power: $damage"
-    	done
+    	done < user_warriors
+
     	echo
 }
