@@ -6,7 +6,12 @@ source ./view_warriors.sh
 source ./shops.sh
 source ./fight_bandits.sh
 
-#data in init stored hunger,money
+echo
+cat introart.txt
+echo
+echo -e "\e[32m\"Broke Brigands\" is a text-based survival strategy game where you lead a group of mercenaries stranded in a hostile land. Manage your mercenaries' health, hunger, and money, navigate tasks and interactions with powerful Barons, and make tactical decisions in battles against Bandits and Barons. Your goal is to accumulate 500 money while keeping your team alive and balancing risks.\e[0m"
+
+echo
 
 days=0
 

@@ -1,6 +1,5 @@
 #! /bin/bash
 init() {
-	echo "initialising..."
 
 	if [[ -f "user_data" ]]; then
 		rm "user_data"
@@ -24,14 +23,12 @@ get_money() {
 
 set_money() {
     local new_money=$1
-    echo "setting money to $new_money"
     local hunger=$(get_hunger)
     echo "$hunger,$new_money" > user_data
 }
 
 set_hunger() {
     local new_hunger=$1
-    echo "setting hunger to $new_hunger"
     local money=$(get_money)
     echo "$new_hunger,$money" > user_data
 }
