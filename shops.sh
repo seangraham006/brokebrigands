@@ -37,6 +37,10 @@ function shop() {
                 					(( user_hunger < 0 )) && user_hunger=0
 						done
 						
+						if (( count == 0 )); then
+							echo "Sorry you don't have enough for any food"
+							break
+						fi
 						echo -e "\nYou purchased $count food"
 
 						break
@@ -70,6 +74,8 @@ function shop() {
 							awk -v line="$warrior_index" -v new_health="$new_health" 'NR == line {$1 = new_health} {print $0}' user_warriors > temp_file && mv temp_file user_warriors
 							user_money=$((user_money - 15))
                                                         echo "$name healed."
+							echo
+							view_warriors user
                                                 fi
                                         else
                                                 echo "Invalid choice!"
