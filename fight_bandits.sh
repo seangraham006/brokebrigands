@@ -7,7 +7,7 @@ source ./init.sh
 forfeit_money_penalty=30
 
 function fight_bandits() {
-	user_money=$1
+	user_money=$(get_money)
 
 	echo -e "\nAvailable Bandit Groups:"
 	echo
