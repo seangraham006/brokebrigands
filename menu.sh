@@ -17,8 +17,6 @@ money=$(get_money)
 
 warrior 3 "true"
 
-quit="false"
-
 while (( money < 500 ))
 do
 	((day+=1))
@@ -28,12 +26,22 @@ do
 	
 	new_hunger=$((hunger + (num_warriors * 3)))
 	
+	if (( new_hunger > 80 && new_hunger < 100 )); then
+		echo ""Warning: Hunger levels are critical! Visit the shop for food to avoid starvation.""
+	elif (( new_hunger >= 100)); then
+		echo "Hunger has reached 100! You have starved to death."
+		exit 0
+	fi
 	
-
 	hunger=$(set_hunger "$new_hunger")	
 	while true; do
 		hunger=$(get_hunger)
 		money=$(get_money)
+		
+		if (( money >= 500 )); then
+           		echo "You SURVIVED!! You can finally afford the boat home."
+            		exit 0
+        	fi
 
 		# Display Options
         	echo -e "\n-----  Starting Day ${day}  -----"
@@ -67,6 +75,8 @@ do
 			5)
 				if [[ $baronTask == false ]]; then
 					echo "Quitting"
+					exit 0
+					break
 				else
 					echo "Complete Baron Task"
 				fi
@@ -88,5 +98,5 @@ do
 			*)
 				echo "Invalid Option";;
 		esac
-	done	
+	done
 done
