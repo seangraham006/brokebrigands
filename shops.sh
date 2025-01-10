@@ -29,27 +29,16 @@ function shop() {
                                                 	break
                                         	fi
 
-						if (( qty * food_cost > user_money )); then
-							echo "You do not have enough money for $qty food"
-							break
-						fi
-						
 						count=0
 						while (( user_money >= food_cost && user_hunger > 0 && count < qty )); do
 							(( count++ ))
-							(( user_money -= food_cost ))
-						       	if ((user_hunger - hunger_decrease <= 0)); then
-								user_hunger=0
-								echo "Minimum hunger reached after purchasing $count food"
-								count="$qty"
-							else
-								((user_hunger-=hunger_decrease))
-							fi
+                					(( user_money -= food_cost ))
+                					(( user_hunger -= hunger_decrease ))
+                					(( user_hunger < 0 )) && user_hunger=0
 						done
+						
+						echo -e "\nYou purchased $count food"
 
-						(( userhunger == 0 )) && break
-
-						((count != qty)) && ((count == 0)) && echo "You do not have enough money for any food" || echo "You only had enough for $count items of food"
 						break
 
 					done
